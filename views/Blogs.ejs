@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include("./partials/Head") %>
+</head>
+
+<body>
+    <%- include("./partials/Navbar") %>
+        <div class="container my-5">
+            <% blog.forEach(element=> { %>
+                <h1>
+                    <%= element.title %>
+                </h1>
+                <img src="<%= element.coverImageURL %>" width="700px">
+                <div mt-3>
+
+                    <pre style="text-align:left;white-space: pre-line;">
+                        <%= element.body %>
+                    </pre>
+                </div>
+                <img src="<%= element.createdBy.profileImgUrl %>">
+                <h5>
+                    <%= element.createdBy.fullName %>
+                </h5>
+                <% if (locals.user) { %>
+
+                    <form action="/blog/comment/<%= element._id %>" method="post">
+                        <div class="form-group">
+
+                            <h2 for="exampleFormControlInput1">
+                                <h2>Comment(<%= comment.length %>)</h2></label>
+                                <% comment.forEach(element=> { %>
+                                    <div>
+
+                                        <pre style="text-align:left;white-space: pre-line;"> <%= element.comment %> :
+                                        <b><%= element.createdBy.fullName %></b>
+                                    </pre>
+
+                                    </div>
+
+
+                                    <% }) %>
+                                        <input type="text" name="comment" class="form-control"
+                                            id="exampleFormControlInput1" placeholder="your comment">
+                        </div>
+                        <button my-2 type="submit" class="btn btn-primary">Submit</button>
+                    </form>
+
+                    <% } %>
+
+                        <% }) %>
+
+        </div>
+        <%- include("./partials/Scripts") %>
+</body>
+
+</html>
